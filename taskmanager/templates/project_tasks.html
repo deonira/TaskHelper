@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Tasks</h2>
+
+
+    <form method="get" action=".">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Filter</button>
+    </form>
+
+    <ul>
+        {% for task in tasks %}
+            <li>
+                <a href="{% url 'task_detail' task.id %}">
+                    {{ task.id }} - {{ task.status }} - {{ task.priority }} - {{ task.due_date|date:"M. d, Y" }}
+                </a>
+            </li>
+        {% empty %}
+            <li>No tasks found.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

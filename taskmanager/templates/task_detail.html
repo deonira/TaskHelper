@@ -1,0 +1,25 @@
+{% block content %}
+<h2>{{ task.title }}</h2>
+<p>{{ task.description }}</p>
+<p>Due Date: {{ task.due_date }}</p>
+<p>Priority: {{ task.get_priority_display }}</p>
+
+<h3>Comments</h3>
+<div>
+    {% for comment in comments %}
+        <div>
+            <strong>{{ comment.user }}</strong> ({{ comment.created_at }}):
+            <p>{{ comment.content }}</p>
+        </div>
+    {% empty %}
+        <p>No comments yet.</p>
+    {% endfor %}
+</div>
+
+<form method="post">
+    {% csrf_token %}
+    {{ comment_form.as_p }}
+    <button type="submit">Add Comment</button>
+</form>
+
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>Profile</h2>
+
+  <p><strong>First Name:</strong> {{ profile.first_name }}</p>
+  <p><strong>Last Name:</strong> {{ profile.last_name }}</p>
+  <p><strong>Position:</strong> {{ profile.position }}</p>
+
+  {% if profile.avatar %}
+    <p><img src="{{ profile.avatar.url }}" alt="Avatar" width="100"></p>
+  {% endif %}
+
+  <a href="{% url 'profile_edit' %}">Edit Profile</a>
+{% endblock %}
+
