@@ -2,6 +2,7 @@
 <h1>{{ project.name }}</h1>
 <a href="{% url 'create_task' project.id %}">Create Task</a>
 <a href="{% url 'edit_project' project.id %}">Edit Project</a>
+<a href="{%url 'project_chat' project.id%}">Open Chat</a>
 
 <h2>Filter Tasks</h2>
 <form method="get" action="{% url 'project_detail' project.id %}">
