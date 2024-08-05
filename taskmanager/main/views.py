@@ -7,6 +7,7 @@ from .forms import UserRegisterForm, ProfileForm, ProjectForm, TaskForm, Comment
 from .models import Project, Task, Comment, Profile, Message, User
 from django.contrib.auth import logout as auth_logout
 from django.db.models import Q
+from django.urls import reverse
 
 
 def register(request):
@@ -73,17 +74,15 @@ def create_project(request):
         form = ProjectForm()
     return render(request, 'create_project.html', {'form': form})
 
-@login_required
 def create_task(request, project_id):
     project = get_object_or_404(Project, id=project_id)
-
     if request.method == 'POST':
         form = TaskForm(request.POST)
         if form.is_valid():
             task = form.save(commit=False)
             task.project = project
             task.save()
-            return redirect('project_detail', pk=project_id)
+            return redirect(reverse('project_detail', kwargs={'project_id': project.id}))
     else:
         form = TaskForm()
     return render(request, 'task_form.html', {'form': form, 'project': project})
